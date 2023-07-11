@@ -9,16 +9,17 @@
             <input type="text" id="username" class="form-control" v-model="username" required>
             <div class="invalid-feedback" v-if="!username">Please enter a username.</div>
           </div>
-          <button v-if="!showGame" type="submit" :disabled="!username" class="btn btn-primary" @click="startGame">Start Game</button>
+          <div class="col-12 d-flex justify-content-center">
+            <button v-if="!showGame" type="submit" :disabled="!username" class="btn btn-primary btn-center" @click="startGame">Start Game</button>
+          </div>
         </form>
         <br>
-        <h2 class="display-6 text-center" v-if="!showGame">Règles du Memory Game</h2>
-        <br>
+        <h2 class="display-6 text-center title_h2" v-if="!showGame">Règles du Memory Game</h2>
           <ul v-if="!showGame">
-            <li>Retournez deux cartes à la fois pour trouver une paire.</li>
-            <li>Si les cartes correspondent, vous gagnez un point.</li>
-            <li>Si les cartes ne correspondent pas, une erreur est comptabilisée.</li>
-            <li>Essayez de trouver toutes les paires correspondantes avec le moins d'erreurs possible.</li>
+            <li class="li_regle">Retournez deux cartes à la fois pour trouver une paire.</li>
+            <li class="li_regle">Si les cartes correspondent, vous gagnez un point.</li>
+            <li class="li_regle">Si les cartes ne correspondent pas, une erreur est comptabilisée.</li>
+            <li class="li_regle">Essayez de trouver toutes les paires correspondantes avec le moins d'erreurs possible.</li>
           </ul>
       </div>
       <div class="col-12" v-if="showGame">
@@ -34,16 +35,19 @@
         v-for="(card, index) in cards"
         :key="index"
       >
-        <div
-          class="card mb-3"
-          :class="{ 'flipped': card.flipped, 'disabled': !gameStarted }"
-          @click="flipCard(card)"
-        >
-          <div class="card-inner">
-            <div class="card-front"></div>
+      <div
+        class="card mb-3"
+        :class="{ 'flipped': card.flipped, 'disabled': !gameStarted }"
+        @click="flipCard(card)"
+      >
+        <div class="card-inner">
+          <div class="card-front"></div>
             <div class="card-back">{{ card.value }}</div>
           </div>
         </div>
+      </div>
+      <div class="col-12 d-flex justify-content-center">
+        <button class="btn btn-primary btn-center" @click="reloadPage">Rejouer</button>
       </div>
     </div>
   </div>
@@ -59,7 +63,7 @@ export default {
       flippedCards: [],
       username: '',
       gameStarted: false,
-      showGame: false
+      showGame: false,
     };
   },
   methods: {
@@ -96,10 +100,12 @@ export default {
       this.gameStarted = true;
       this.showGame = true;
     },
-    
+    reloadPage() {
+      window.location.reload();
+    }
   },
   mounted() {
-    const values = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D'];
+    const values = ['Son Goku', 'Son Goku', 'Vegeta', 'Vegeta', 'Freezer', 'Freezer', 'Boo', 'Boo'];
     this.cards = values.map((value) => ({
       value,
       flipped: false,
@@ -115,6 +121,7 @@ export default {
     height: 10rem;
     cursor: pointer;
     perspective: 1000px;
+    overflow: hidden;
   }
   
   .card-inner {
@@ -152,6 +159,20 @@ export default {
 
   .card-wrapper {
     padding-right: 0;
+  }
+
+  .btn-center {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .title_h2 {
+    margin: 2rem;
+  }
+
+  .li_regle {
+    margin-bottom: 1rem;
   }
 
 </style>
