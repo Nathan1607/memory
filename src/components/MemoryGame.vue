@@ -7,14 +7,25 @@
           <div class="mb-3">
             <label for="username" class="form-label">Username:</label>
             <input type="text" id="username" class="form-control" v-model="username" required>
+            <div class="invalid-feedback" v-if="!username">Please enter a username.</div>
           </div>
-          <button v-if="!showGame" type="submit" class="btn btn-primary" @click="startGame">Start Game</button>
+          <button v-if="!showGame" type="submit" :disabled="!username" class="btn btn-primary" @click="startGame">Start Game</button>
         </form>
+        <br>
+        <h2 class="display-6 text-center" v-if="!showGame">Règles du Memory Game</h2>
+        <br>
+          <ul v-if="!showGame">
+            <li>Retournez deux cartes à la fois pour trouver une paire.</li>
+            <li>Si les cartes correspondent, vous gagnez un point.</li>
+            <li>Si les cartes ne correspondent pas, une erreur est comptabilisée.</li>
+            <li>Essayez de trouver toutes les paires correspondantes avec le moins d'erreurs possible.</li>
+          </ul>
       </div>
       <div class="col-12" v-if="showGame">
         <p class="lead">Player: {{ username }}</p>
         <p class="lead">Score: <span class="badge bg-primary">{{ score }}</span></p>
         <p class="lead">Errors: <span class="badge bg-danger">{{ errors }}</span></p>
+        <br>
       </div>
     </div>
     <div class="row" v-if="showGame">
@@ -76,16 +87,10 @@ export default {
       this.flippedCards = [];
     },
     shuffleArray(array) {
-      // Algorithme de mélange des cartes (Fisher-Yates shuffle)
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
       }
-    },
-    submitForm() {
-      // Faites quelque chose avec le pseudo de l'utilisateur, par exemple, démarrez le jeu
-      console.log('Username:', this.username);
-      // Autres actions à effectuer après la soumission du formulaire
     },
     startGame() {
       this.gameStarted = true;
@@ -94,7 +99,6 @@ export default {
     
   },
   mounted() {
-    // Initialisation des cartes
     const values = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D'];
     this.cards = values.map((value) => ({
       value,
@@ -104,7 +108,6 @@ export default {
   },
 };
 </script>
-  
   
 <style>
   .card {
@@ -150,15 +153,6 @@ export default {
   .card-wrapper {
     padding-right: 0;
   }
-
-  /* .row { */
-    /* flex-shrink: 0; */
-    /* width: 100%; */
-    /* max-width: 100%; */
-    /* padding-right: calc(var(--bs-gutter-x) * 0.5); */
-    /* padding-left: calc(var(--bs-gutter-x) * 0.5); */
-    /* margin-top: var(--bs-gutter-y); */
-  /* } */
 
 </style>
   
