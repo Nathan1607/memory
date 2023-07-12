@@ -14,7 +14,7 @@
           </div>
         </form>
         <br>
-        <h2 class="display-6 text-center title_h2" v-if="!showGame">Règles du Memory Game</h2>
+        <h2 class="display-6 text-center title_h2" v-if="!showGame">Règles du Jeu</h2>
           <ul v-if="!showGame">
             <li class="li_regle">Retournez deux cartes à la fois pour trouver une paire.</li>
             <li class="li_regle">Si les cartes correspondent, vous gagnez un point.</li>
@@ -23,9 +23,9 @@
           </ul>
       </div>
       <div class="col-12" v-if="showGame">
-        <p class="lead">Player: {{ username }}</p>
-        <p class="lead">Score: <span class="badge bg-primary">{{ score }}</span></p>
-        <p class="lead">Errors: <span class="badge bg-danger">{{ errors }}</span></p>
+        <p class="lead">Player : {{ username }}</p>
+        <p class="lead">Score : <span class="badge bg-primary">{{ score }}</span></p>
+        <p class="lead">Erreur : <span class="badge bg-danger">{{ errors }}</span></p>
         <br>
       </div>
     </div>
